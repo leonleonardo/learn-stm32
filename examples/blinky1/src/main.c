@@ -2,6 +2,7 @@
 
 void delay(int ms)
 {
+    /* Software delay loop*/
     while(ms-- > 0)
     {
         volatile int i = 500;
@@ -11,21 +12,20 @@ void delay(int ms)
         }
     }
 }
-void gpioc_clock_reset(void)
+void gpio_pc13_led_init(void)
 {
-    RCC->AHB1RSTR |= RCC_AHB1RSTR_GPIOCRST;
-}
-
-void gpioc_clock_init(void)
-{
+    /* Initialize the peripheral clock to feed gpioc*/
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+    /* Initialize the PC13 as output*/
+    GPIOC->MODER |= GPIO_MODER_MODER13_0;
 }
 
 
 int main()
 {
-    gpioc_clock_init();
-    GPIOC->MODER |= GPIO_MODER_MODER13_0;
+    /*Initialize system peripherals */
+    gpio_pc13_led_init();
+    /*Super Loop */
     while(1)
     {
         delay(1000);
