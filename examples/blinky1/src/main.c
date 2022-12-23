@@ -12,7 +12,7 @@ void delay(int ms)
         }
     }
 }
-void gpio_pc13_led_init(void)
+void gpio_init(void)
 {
     /* Initialize the peripheral clock to feed gpioc*/
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
@@ -24,7 +24,7 @@ void gpio_pc13_led_init(void)
 int main()
 {
     /*Initialize system peripherals */
-    gpio_pc13_led_init();
+    gpio_init();
     /*Super Loop */
     while(1)
     {
